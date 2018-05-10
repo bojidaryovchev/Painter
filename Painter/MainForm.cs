@@ -215,7 +215,7 @@
 
                 int bottom = pictureBoxControl.Top + pictureBoxControl.Height;
                 int right = pictureBoxControl.Left + pictureBoxControl.Width;
-
+                
                 if (bottom > this._pictureBox.Height)
                 {
                     bottom = this._pictureBox.Height;
@@ -226,9 +226,14 @@
                     right = this._pictureBox.Width;
                 }
 
-                for (int row = pictureBoxControl.Top, top = 0; row < bottom; row++, top++)
+                int initialRow = pictureBoxControl.Top < 0 ? 0 : pictureBoxControl.Top;
+                int initialCol = pictureBoxControl.Left < 0 ? 0 : pictureBoxControl.Left;
+                int initialTop = pictureBoxControl.Top < 0 ? Math.Abs(pictureBoxControl.Top) : 0;
+                int initialLeft = pictureBoxControl.Left < 0 ? Math.Abs(pictureBoxControl.Left) : 0;
+
+                for (int row = initialRow, top = initialTop; row < bottom; row++, top++)
                 {
-                    for (int col = pictureBoxControl.Left, left = 0; col < right; col++, left++)
+                    for (int col = initialCol, left = initialLeft; col < right; col++, left++)
                     {
                         this._imagePart.SetColor(row, col, bitmap.GetPixel(left, top));
                     }
